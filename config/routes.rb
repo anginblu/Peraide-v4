@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      get 'signup', to: "users#create"
-      get 'login', to: "sessions#create"
+      post 'signup', to: "users#signup"
+      post 'login', to: "sessions#login"
     end
   end
 
