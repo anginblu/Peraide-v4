@@ -5,7 +5,6 @@ require 'jwt'
       user_payload = JSON.parse(user_object.to_json)
       payload = {user: user_payload}
       token = JWT.encode(payload, 'peraide', 'HS256')
-      decode_token(token)
     end
 
     def self.decode_token(token)
