@@ -4,7 +4,6 @@ import { Field, reduxForm } from 'redux-form'
 import PropTypes from 'prop-types'
 import renderField from '../RenderField'
 import Validation from '../Validation'
-import Logo from '../Logo'
 
 const LoginForm = props => {
   const { error, handleSubmit, pristine, reset, submitting } = props;

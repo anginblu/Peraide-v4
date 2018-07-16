@@ -1,18 +1,52 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {signUp} from '../actions/auth_actions';
+
+//Client side validation
+function validate(values) {
+  var errors = {};
+  var hasErrors = false;
+
+  if (!values.username || values.username.trim() === '') {
+    errors.username = 'Enter username';
+    hasErrors = true;
+  }
+  if (!values.email || values.email.trim() === '') {
+    errors.email = 'Enter email';
+    hasErrors = true;
+  }
+  if (!values.password || values.password.trim() === '') {
+    errors.password = 'Enter password';
+    hasErrors = true;
+  }
+  return hasErrors && errors;
+}
 
 export default class SignUpForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: ''
+      user: {
+        username: '',
+        email: '',
+        password: ''
+      },
+      submitted: false,
     }
   }
 
-  signUp() {
-    console.log('this.state', this.state)
-    const {email, password} = this.state
+  handleSubmit(e) {
+    e.preventDefault();
+
+    this.setState({submitted: true});
+    const { user } = this.state;
+
+    if (!user.validate) {
+      this.props.signUp(user);
+      this.props.history.replace('/')
+    }
   }
 
   render() {
@@ -35,7 +69,7 @@ export default class SignUpForm extends Component {
           <button
             className="btn btn-primary"
             type="button"
-            onClick={() => this.signUp()}
+            onClick={(e) => this.handleSubmit(e)}
           >
           Sign Up
           </button>
@@ -44,3 +78,12 @@ export default class SignUpForm extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+    return {
+        user: state.auth.user
+    };
+}
+
+const connectedRegisterPage = connect(mapStateToProps)(RegisterForm);
+export { connectedRegisterPage as RegisterForm };
