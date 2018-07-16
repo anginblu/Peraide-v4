@@ -1,12 +1,41 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { login, getUser } from '../actions/authActions'
 import { Redirect, Link} from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form'
-import PropTypes from 'prop-types'
-import renderField from '../RenderField'
-import Validation from '../Validation'
 
-const LoginForm = props => {
-  const { error, handleSubmit, pristine, reset, submitting } = props;
+
+class LoginForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {
+        email: '',
+        password: ''
+      },
+      submitted: false,
+    }
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    const { user } = this.state;
+
+    if (!user.validate) {
+      this.props.register(user);
+      this.props.history.replace('/')
+    }
+  }
+
   return (
     <div>
     <Logo/>

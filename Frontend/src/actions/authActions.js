@@ -11,7 +11,6 @@ const authSuccess = (user, token) => {
 }
 
 const authFailure = (errors) => {
-
   return {
     type: 'AUTHENTICATION_FAILURE',
     errors: errors.message
@@ -29,7 +28,7 @@ export const register = (user) => {
 
   return dispatch => {
 
-    return fetch(`${API_URL}/register`, {
+    return fetch(`${API_URL}/signup`, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({user: user})

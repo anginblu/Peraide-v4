@@ -3,49 +3,27 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {register} from '../actions/authActions';
 
-//Client side validation
-function validate(values) {
-  var errors = {};
-  var hasErrors = false;
-
-  if (!values.username || values.username.trim() === '') {
-    errors.username = 'Enter username';
-    hasErrors = true;
-  }
-  if (!values.email || values.email.trim() === '') {
-    errors.email = 'Enter email';
-    hasErrors = true;
-  }
-  if (!values.password || values.password.trim() === '') {
-    errors.password = 'Enter password';
-    hasErrors = true;
-  }
-  return hasErrors && errors;
-}
-
 class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
         username: '',
         email: '',
-        password: ''
-      },
-      submitted: false,
+        password: '',
     }
+  }
+
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    this.setState({submitted: true});
-    const { user } = this.state;
-
-    if (!user.validate) {
-      this.props.register(user);
-      this.props.history.replace('/')
-    }
+    this.props.register(this.state);
+    this.props.history.replace('/')
   }
 
   render() {
@@ -61,7 +39,7 @@ class RegisterForm extends Component {
               name="username"
               className="form-control"
               type="text" placeholder="Please choose a username"
-              onChange={e => this.setState({username: e.target.value})}
+              onChange={e => this.handleChange(e)}
               value={this.state.username}
               /><br/>
 
@@ -70,7 +48,7 @@ class RegisterForm extends Component {
               name="email"
               className="form-control"
               type="text" placeholder="Please enter your email"
-              onChange={e => this.setState({email: e.target.value})}
+              onChange={e => this.handleChange(e)}
               value={this.state.email}
               /><br/>
 
@@ -79,7 +57,7 @@ class RegisterForm extends Component {
               name="password"
               className="form-control"
               type="password" placeholder="Please choose a password"
-              onChange={e => this.setState({password: e.target.value})}
+              onChange={e => this.handleChange(e)}
               value={this.state.password}
               /><br/>
 
