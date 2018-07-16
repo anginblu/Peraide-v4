@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {signUp} from '../actions/auth_actions';
+import {register} from '../actions/authActions';
 
 //Client side validation
 function validate(values) {
@@ -24,7 +23,7 @@ function validate(values) {
   return hasErrors && errors;
 }
 
-export default class SignUpForm extends Component {
+class RegisterForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +43,7 @@ export default class SignUpForm extends Component {
     const { user } = this.state;
 
     if (!user.validate) {
-      this.props.signUp(user);
+      this.props.register(user);
       this.props.history.replace('/')
     }
   }
@@ -52,7 +51,7 @@ export default class SignUpForm extends Component {
   render() {
     return (
       <div className='form-inline'>
-        <h2>Sign Up</h2>
+        <h2>Register</h2>
         <div className="form-group">
           <input
             className="form-control"
@@ -81,9 +80,14 @@ export default class SignUpForm extends Component {
 
 function mapStateToProps(state) {
     return {
-        user: state.auth.user
+        user: state.user
     };
 }
 
-const connectedRegisterPage = connect(mapStateToProps)(RegisterForm);
-export { connectedRegisterPage as RegisterForm };
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    register: register
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterForm);
