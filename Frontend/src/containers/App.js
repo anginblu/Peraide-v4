@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
 
 import RegisterForm from '../components/RegisterForm'
+import LoginForm from '../components/LoginForm'
 
 import HomePage from './HomePage'
 
@@ -33,6 +34,7 @@ export default class App extends React.Component {
 
               <Route exact path="/" component = {HomePage} />
               <Route exact path="/register" component = {RegisterForm} />
+              <Route exact path="/login" component = {LoginForm} />
 
             </div>
 
