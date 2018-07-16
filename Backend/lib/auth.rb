@@ -11,3 +11,11 @@ require 'jwt'
       JWT.decode(token, 'peraide', true, {algorithm: 'HS256'})
     end
   end
+
+
+##Angular
+#token will be saved as  request.env["HTTP_AUTHORIZATION"]
+
+#window.localStorage.setItem('Token', request.env["HTTP_AUTHORIZATION"])
+#let token = window.localStorage.getItem('Token')
+#fetch('', {method: 'GET', headers: {'Authorization': }}).then(resp => resp.json())
