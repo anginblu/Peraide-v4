@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
 
-import RegisterForm from '../components/RegisterForm'
-import LoginForm from '../components/LoginForm'
+le
 
 import HomePage from './HomePage'
 

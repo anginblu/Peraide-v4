@@ -10,13 +10,6 @@ export function authenticationLoading(state = initState, action) {
   switch (action.type) {
       case 'AUTHENTICATION_REQUEST':
         return {...state, isAuthenticating: true}
-      default:
-          return state;
-  }
-}
-
-export function authenticationErrored(state = initState, action) {
-    switch (action.type) {
       case 'AUTHENTICATION_FAILURE':
         return {
           isAuthenticated: false,
@@ -27,7 +20,7 @@ export function authenticationErrored(state = initState, action) {
         }
       default:
         return state;
-    }
+  }
 }
 
 export function authentication (state = initState, action) {

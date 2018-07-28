@@ -22,6 +22,7 @@ module PeraideV4
     end
 
     config.middleware.use ActionDispatch::Flash
+    config.autoload_paths << Rails.root.join('lib')
 
     config.action_controller.allow_forgery_protection = false
 
